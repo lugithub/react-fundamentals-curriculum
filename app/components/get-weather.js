@@ -1,4 +1,9 @@
 import React from 'react';
+
+import {
+  Link
+} from 'react-router-dom';
+
 import {getWeather, getForcast} from '../apis/open-weather';
 
 export default class GetWeather extends React.Component {
@@ -27,7 +32,10 @@ export default class GetWeather extends React.Component {
       <span>enter a city and state</span>
       <input type="text" value={this.state.location}
         onChange={this.handleChange}></input>
-      <button onClick={this.handleClick.bind(null, this.state.location)}>get weather</button>
+      <Link to={{
+        pathname: '/forecast',
+        search: `?city=${this.state.location}`,
+      }}>get weather</Link>
     </span>;
   }
 }
