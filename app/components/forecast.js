@@ -46,18 +46,20 @@ class Forecast extends React.Component {
     return <div>
       <Header />
       {this.state.loading ? <span>loading...</span> :
-        <ForecastList city={searchObj.city} dataList={this.state.dataList} />}
+        <ForecastList city={searchObj.city} dataList={this.state.dataList}
+          history={this.props.history}/>}
     </div>
   }
 }
 
-function ForecastList({city, dataList}) {
+function ForecastList({city, dataList, history}) {
     const title = city.split(',').map(_.capitalize).join(' ');
     return <div>
       <div style={{textAlign: 'center'}}>{title}</div>
       <div style={{display: 'flex', flexWrap: 'wrap'}}>{
         dataList.map(dayWeather =>
-          <div key={dayWeather.dt} style={{margin: '1em'}}>
+          <div key={dayWeather.dt} style={{margin: '1em'}}
+            onClick={() => history.push(`/detail/${city}`, dayWeather)}>
             <img style={{display: 'block', margin: 'auto', width: '40px', height: '41px'}}
               src={`app/images/weather-icons/${dayWeather.weather[0].icon}.svg`}
             />
